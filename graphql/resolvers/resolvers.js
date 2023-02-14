@@ -12,8 +12,22 @@ const page = {
 export const resolvers = {
     Query: {
         getPage : () => page,
-        getNews : () => {
+        getNews : (_, args) => {
+            const { category } = args;
+            if(category !== undefined && category !== 'all') {
+                const latestNews = db.get('latestNews');
+                const data = db.get('latestNews').data.filter( news => news.category === category)
+                return { ...latestNews, data }
+            }
             return (db.get('latestNews'))
+        },
+        getNewsById : (_, args) => {
+            console.log('salam')
+            const { id } = args;
+            const news = db.get('latestNews').data.filter(news => news.id === id)
+            if(news.length > 0) {
+                return news[0]
+            }
         },
         getCats : () => {
             return (db.get('categories'))

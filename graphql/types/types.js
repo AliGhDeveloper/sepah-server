@@ -20,7 +20,7 @@ export const typeDefs = `
 
 
     type News {
-        id : ID
+        id : String
         title: String
         content: String
         image : String
@@ -36,7 +36,8 @@ export const typeDefs = `
 
     type Query {
         getPage : Page
-        getNews : LatestNews
+        getNews(category : String) : LatestNews
+        getNewsById(id : String) : News
         getCats : [Category]
     }
 
