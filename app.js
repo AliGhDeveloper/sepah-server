@@ -19,12 +19,16 @@ dotenv.config();
 
 const app = express();
 
+
 app.use(cors()); 
 app.use(bodyParser())
 app.use(express.static(__dirname + '/'));
 app.use('/bower_components',  express.static(path.join(__dirname, '../bower_components')));
 app.use(bodyParser.urlencoded({ extended: false }));
- 
+
+app.use('/', (req, res) => {
+    res.json({name : 'ali'})
+})
 app.use('/image_upload', uploadImage)
 
 
